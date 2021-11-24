@@ -8,6 +8,8 @@ use App\Http\Controllers\UserAuthController;
 use App\Http\controllers\CategoryController;
 use App\Http\controllers\PostCategory;
 use App\Http\controllers\PostSubCategory;
+use App\Http\controllers\ProductController;
+use App\Http\controllers\ReviewController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -57,7 +59,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 // Route::post('/business', [BusinessController::class, 'store']); 
 
-// Route::resource('business', BusinessController::class);
+   Route::apiResource('products', ProductController::class);
+
+   Route::group(['prefix' => 'products'], function (){
+      Route::apiResource('/{product}/reviews', ReviewController::class);
+   });
 
 // Route::get('business/search/{name}', [BusinessController::class, 'search']); 
 
