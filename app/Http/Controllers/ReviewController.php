@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
+use App\Http\Resources\Review\ReviewsResource;
 use App\Models\Review;
+use App\Models\Product;
+
 
 class ReviewController extends Controller
 {
@@ -13,9 +16,11 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Product $product)
     {
         //
+
+        return ReviewsResource::collection($product->reviews);
     }
 
     /**
@@ -34,9 +39,21 @@ class ReviewController extends Controller
      * @param  \App\Http\Requests\StoreReviewRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreReviewRequest $request)
+    public function store(StoreReviewRequest $request, Product $product)
     {
         //
+    //  return $product;
+        $review = new Review($request->all());
+        $product->reviews()->save($review);
+
+        $response = response([
+            'data' => new ReviewsResource($review),
+            'success' => true,
+             'message' => 'Review created successfully'
+        ]);
+
+        return $response;
+        
     }
 
     /**

@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->integer('price');
             $table->integer('category_id');
             $table->integer('subCategory_id');
+            $table->bigInteger('user_id')->unsigned()->index();
             $table->integer('stock');
             $table->integer('discount'); 
             $table->timestamps();

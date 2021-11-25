@@ -19,6 +19,8 @@ class ProductPolicy
     public function viewAny(User $user)
     {
         //
+
+        return true;
     }
 
     /**
@@ -42,6 +44,7 @@ class ProductPolicy
     public function create(User $user)
     {
         //
+        // return $user;
     }
 
     /**
